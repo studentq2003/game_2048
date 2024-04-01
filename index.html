@@ -2,17 +2,30 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link type="Image/x-icon" href="./favicon.ico" rel="icon">
-  <title>2048</title>
-  <link rel="stylesheet" href="./style.css">
-  <script src="./script.js" type="module"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="Image/x-icon" href="./favicon.ico" rel="icon">
+    <title>2048</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./script.js" type="module"></script>
 </head>
 
 <body>
-  <div id="game-board">
-  </div>
+    <header>
+        <h1>2048!</h1>
+        <h2 id="score">SCORE</h2>
+        <div class="btn-container">
+            <form action="./leaderboard.html">
+                <button class="btn">LeaderBoard</button>
+            </form>
+        </div>
+        
+    </header>
+    
+
+    <div class="container">
+        <div id="game-board"></div>
+    </div>
 </body>
 
 </html>
