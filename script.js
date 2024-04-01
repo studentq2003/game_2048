@@ -55,7 +55,7 @@ async function handleInput(event) {
 
     if (!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
         await newTile.waitForAnimationEnd()
-        alert(`Поражение! Вам удалось набрать ${score}`)
+        restartModal.style.display = "flex"; // Использование flex для центрирования кнопки
         return;
     }
 
@@ -160,8 +160,43 @@ let score = 0;
 function updateScore(points) {
     score += points; // Добавление очков к общему счёту
     document.getElementById('score').textContent = `Score: ${score}`; // Обновление отображения счёта
+    document.getElementById('result').textContent = `Вы набрали: ${score}`; // Обновление отображения результата
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     updateScore(0); // Инициализация отображения счёта
 });
+
+
+
+
+// Получение элемента модального окна и кнопки рестарта
+const restartModal = document.getElementById("restartModal");
+const restartButton = document.getElementById("restartGame");
+
+// Функция для показа модального окна
+function showRestartModal() {
+    restartModal.style.display = "flex"; // Использование flex для центрирования кнопки
+}
+
+// Обработчик клика по кнопке "Рестарт"
+restartButton.onclick = function() {
+    restartModal.style.display = "none";
+    restartModal.style.display = "none"; // Скрыть модальное окно рестарта
+    score = 0; // Сбросить счёт
+    updateScore(0); // Обновить отображение счёта
+
+    // Очистка игрового поля
+    const tiles = document.querySelectorAll('.tile');
+    tiles.forEach(tile => tile.remove());
+
+    // Пересоздание сетки и начальных плиток
+    grid.cells.forEach(cell => cell.linkedTile = null); // Сброс всех связей с плитками
+    grid.getRandomEmptyCell().linkTile(new Tile(gameBoard));
+    grid.getRandomEmptyCell().linkTile(new Tile(gameBoard));
+
+    setupInputOnce();
+}
+
+// Показывайте модальное окно при условии проигрыша
+// showRestartModal();
