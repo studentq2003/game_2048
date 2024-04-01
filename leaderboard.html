@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,21 +11,26 @@
             background-color: #f0f0f0;
             text-align: center;
         }
+
         table {
             margin: auto;
             border-collapse: collapse;
             width: 80%;
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid #dddddd;
             text-align: left;
             padding: 8px;
         }
+
         tr:nth-child(even) {
             background-color: #dddddd;
         }
     </style>
 </head>
+
 <body>
     <h2>Leaderboards</h2>
     <table>
@@ -37,5 +43,35 @@
         </tr>
         <!-- Здесь будут добавлены строки таблицы динамически -->
     </table>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Функция для заполнения таблицы данными
+            function fillLeaderboard(data) {
+                const table = document.querySelector('table tbody');
+                table.innerHTML = ''; // Очищаем текущее содержимое таблицы
+
+                data.forEach(item => {
+                    const row = `<tr>
+                <td>${item.id}</td>
+                <td>${item.nickname}</td>
+                <td>${item.score}</td>
+                <td>${new Date(item.attempt_timestamp).toLocaleDateString()}</td>
+                <td>${new Date(item.attempt_timestamp).toLocaleTimeString()}</td>
+              </tr>`;
+                    table.innerHTML += row; // Добавляем строку в таблицу
+                });
+            }
+
+            // Отправляем запрос к API для получения данных и их отображения
+            fetch('/api/leaderboard')
+                .then(response => response.json())
+                .then(data => fillLeaderboard(data))
+                .catch(error => console.error('Error fetching leaderboard:', error));
+        });
+    </script>
+
 </body>
+
 </html>
