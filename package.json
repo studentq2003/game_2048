@@ -1,0 +1,14 @@
+{
+    "name": "game_2048",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+      "start": "node server.js"
+    },
+    "dependencies": {
+      "express": "^4.17.1",
+      "pg": "^8.5.1"
+    }
+  }
+  
