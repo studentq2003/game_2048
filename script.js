@@ -160,7 +160,7 @@ let score = 0;
 function updateScore(points) {
     score += points; // Добавление очков к общему счёту
     document.getElementById('score').textContent = `Score: ${score}`; // Обновление отображения счёта
-    document.getElementById('result').textContent = `Вы набрали: ${score}`; // Обновление отображения результата
+    document.getElementById('result').textContent = `${score}`; // Обновление отображения результата
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -180,7 +180,7 @@ function showRestartModal() {
 }
 
 // Обработчик клика по кнопке "Рестарт"
-restartButton.onclick = function() {
+restartButton.onclick = function () {
     restartModal.style.display = "none";
     restartModal.style.display = "none"; // Скрыть модальное окно рестарта
     score = 0; // Сбросить счёт
@@ -200,3 +200,46 @@ restartButton.onclick = function() {
 
 // Показывайте модальное окно при условии проигрыша
 // showRestartModal();
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const submitButton = document.getElementById('submitScore');
+    const restartButton = document.getElementById('restartGame');
+    const nicknameInput = document.getElementById('nickname');
+    const scoreDisplay = document.getElementById('result'); // Предполагается, что здесь отображается счёт игрока
+
+    // Функция для отправки результатов игры
+    submitButton.addEventListener('click', function () {
+        const nickname = nicknameInput.value;
+        const score = scoreDisplay.textContent; // Получаем счёт из соответствующего элемента
+
+        // Проверяем, что никнейм введен
+        if (nickname.trim() === '') {
+            alert('Пожалуйста, введите ваш никнейм.');
+            return;
+        }
+
+        // Отправляем данные на сервер
+        fetch('/api/scores', { // Предполагается, что это ваш эндпоинт на сервере
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ nickname, score }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                // Делаем поле ввода и кнопку неактивными
+                nicknameInput.disabled = true;
+                submitButton.disabled = true;
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    });
+
+    // Добавьте сюда логику рестарта игры для restartButton, если необходимо
+});

@@ -8,7 +8,6 @@
     <title>2048</title>
     <link rel="stylesheet" href="./style.css">
     <script src="./script.js" type="module"></script>
-    <script src="./restart.js" type="module"></script>
 </head>
 
 <body>
@@ -18,9 +17,14 @@
         <div class="modal-content">
             <div>Поражение!</div>
             <h2 id="result"></h2>
+            <!-- Добавляем поле ввода для никнейма -->
+            <input type="text" id="nickname" placeholder="Введите ваш никнейм">
+            <!-- Добавляем кнопку для отправки результата -->
+            <button id="submitScore" class="btn">Отправить</button>
             <button id="restartGame" class="btn">Рестарт</button>
         </div>
     </div>
+
 
     <header>
         <h1>2048!</h1>

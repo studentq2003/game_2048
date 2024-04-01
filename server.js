@@ -16,6 +16,8 @@ const pool = new Pool({
 
 // Отдаем статические файлы (например, фронтенд вашего приложения)
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json()); // Для разбора JSON-тел запросов
+
 
 // API-эндпоинт для получения рейтинга
 app.get('/api/leaderboard', async (req, res) => {
@@ -27,6 +29,18 @@ app.get('/api/leaderboard', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+
+app.post('/api/scores', async (req, res) => {
+    const { nickname, score } = req.body; // убедитесь, что используете bodyParser для разбора JSON-тела запроса
+    try {
+      const result = await pool.query('INSERT INTO scores (nickname, score) VALUES ($1, $2) RETURNING *', [nickname, score]);
+      res.json(result.rows[0]);
+    } catch (error) {
+      console.error('Error inserting score:', error);
+      res.status(500).send('Server error');
+    }
+  });
+  
 
 // Опционально: базовый маршрут для отдачи index.html
 app.get('/', (req, res) => {
