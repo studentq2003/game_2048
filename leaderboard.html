@@ -3,21 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2048 LeaderBoard</title>
+    <title>Leaderboards</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+        table {
+            margin: auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
 </head>
 <body>
-    <h1>LeaderBoard</h1>
+    <h2>Leaderboards</h2>
     <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Date</th>
-                <th>Score</th>
-            </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
+        <tr>
+            <th>ID</th>
+            <th>Nickname</th>
+            <th>Score</th>
+            <th>Date</th>
+            <th>Time</th>
+        </tr>
+        <!-- Здесь будут добавлены строки таблицы динамически -->
     </table>
 </body>
 </html>
