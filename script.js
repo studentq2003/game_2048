@@ -183,12 +183,10 @@ restartButton.onclick = function () {
     score = 0;
     updateScore(0);
 
-    // Очистка игрового поля
     const tiles = document.querySelectorAll('.tile');
     tiles.forEach(tile => tile.remove());
 
-    // Пересоздание сетки и начальных плиток
-    grid.cells.forEach(cell => cell.linkedTile = null); // Сброс всех связей с плитками
+    grid.cells.forEach(cell => cell.linkedTile = null);
     grid.getRandomEmptyCell().linkTile(new Tile(gameBoard));
     grid.getRandomEmptyCell().linkTile(new Tile(gameBoard));
 
@@ -202,7 +200,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const nicknameInput = document.getElementById('nickname');
     const scoreDisplay = document.getElementById('result');
 
-    // Функция для отправки результатов игры
     submitButton.addEventListener('click', function () {
         const nickname = nicknameInput.value;
         const score = scoreDisplay.textContent;

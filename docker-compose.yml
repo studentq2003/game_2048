@@ -8,17 +8,17 @@ services:
       - db
     environment:
       - DB_HOST=db
-      - DB_USER=admin  # Это должно соответствовать POSTGRES_USER, если вы планируете использовать этого пользователя для доступа к БД
-      - DB_PASSWORD=kingofpenis228  # Убедитесь, что это совпадает с POSTGRES_PASSWORD для пользователя POSTGRES_USER
+      - DB_USER=admin
+      - DB_PASSWORD=kingofpenis228
       - DB_NAME=leaderboards
       - DB_PORT=5432
 
   db:
     image: postgres:latest
     environment:
-      POSTGRES_USER: admin  # Измените на 'admin', если хотите использовать 'admin' в качестве пользователя для доступа к БД
+      POSTGRES_USER: admin
       POSTGRES_PASSWORD: kingofpenis228
-      POSTGRES_DB: leaderboards  # Укажите, что база данных 'leaderboards' должна быть создана при инициализации
+      POSTGRES_DB: leaderboards
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql

@@ -42,13 +42,12 @@ export class Cell {
         );
     }
 
-    // Предполагается, что mergeTiles вызывается при успешном слиянии двух плиток
     mergeTiles() {
-        const combinedValue = this.linkedTile.value + this.linkedTileForMerge.value; // Вычисление значения новой плитки
-        this.linkedTile.setValue(combinedValue); // Установка нового значения для плитки
-        updateScore(combinedValue); // Обновление счёта на значение новой плитки
-        this.linkedTileForMerge.removeFromDOM(); // Удаление слившейся плитки из DOM
-        this.unlinkTileForMerge(); // Очистка ссылки на слившуюся плитку
+        const combinedValue = this.linkedTile.value + this.linkedTileForMerge.value;
+        this.linkedTile.setValue(combinedValue);
+        updateScore(combinedValue);
+        this.linkedTileForMerge.removeFromDOM();
+        this.unlinkTileForMerge();
     }
 
 }

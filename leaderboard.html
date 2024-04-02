@@ -87,16 +87,14 @@
             <th>Date</th>
             <th>Time</th>
         </tr>
-        <!-- Здесь будут добавлены строки таблицы динамически -->
     </table>
 
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Функция для заполнения таблицы данными
             function fillLeaderboard(data) {
                 const table = document.querySelector('table tbody');
-                table.innerHTML = ''; // Очищаем текущее содержимое таблицы
+                table.innerHTML = '';
 
                 data.forEach(item => {
                     const row = `<tr>
@@ -106,11 +104,10 @@
                 <td>${new Date(item.attempt_timestamp).toLocaleDateString()}</td>
                 <td>${new Date(item.attempt_timestamp).toLocaleTimeString()}</td>
               </tr>`;
-                    table.innerHTML += row; // Добавляем строку в таблицу
+                    table.innerHTML += row;
                 });
             }
 
-            // Отправляем запрос к API для получения данных и их отображения
             fetch('/api/leaderboard')
                 .then(response => response.json())
                 .then(data => fillLeaderboard(data))
