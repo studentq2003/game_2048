@@ -55,7 +55,7 @@ async function handleInput(event) {
 
     if (!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
         await newTile.waitForAnimationEnd()
-        restartModal.style.display = "flex"; // Использование flex для центрирования кнопки
+        restartModal.style.display = "flex";
         return;
     }
 
@@ -158,33 +158,30 @@ function canMoveInGroup(group) {
 let score = 0;
 
 function updateScore(points) {
-    score += points; // Добавление очков к общему счёту
-    document.getElementById('score').textContent = `Score: ${score}`; // Обновление отображения счёта
-    document.getElementById('result').textContent = `${score}`; // Обновление отображения результата
+    score += points;
+    document.getElementById('score').textContent = `Score: ${score}`;
+    document.getElementById('result').textContent = `${score}`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    updateScore(0); // Инициализация отображения счёта
+    updateScore(0);
 });
 
 
 
-
-// Получение элемента модального окна и кнопки рестарта
 const restartModal = document.getElementById("restartModal");
 const restartButton = document.getElementById("restartGame");
 
-// Функция для показа модального окна
+
 function showRestartModal() {
-    restartModal.style.display = "flex"; // Использование flex для центрирования кнопки
+    restartModal.style.display = "flex";
 }
 
-// Обработчик клика по кнопке "Рестарт"
+
 restartButton.onclick = function () {
     restartModal.style.display = "none";
-    restartModal.style.display = "none"; // Скрыть модальное окно рестарта
-    score = 0; // Сбросить счёт
-    updateScore(0); // Обновить отображение счёта
+    score = 0;
+    updateScore(0);
 
     // Очистка игрового поля
     const tiles = document.querySelectorAll('.tile');
@@ -198,31 +195,24 @@ restartButton.onclick = function () {
     setupInputOnce();
 }
 
-// Показывайте модальное окно при условии проигрыша
-// showRestartModal();
-
-
-
 
 document.addEventListener('DOMContentLoaded', function () {
     const submitButton = document.getElementById('submitScore');
     const restartButton = document.getElementById('restartGame');
     const nicknameInput = document.getElementById('nickname');
-    const scoreDisplay = document.getElementById('result'); // Предполагается, что здесь отображается счёт игрока
+    const scoreDisplay = document.getElementById('result');
 
     // Функция для отправки результатов игры
     submitButton.addEventListener('click', function () {
         const nickname = nicknameInput.value;
-        const score = scoreDisplay.textContent; // Получаем счёт из соответствующего элемента
+        const score = scoreDisplay.textContent;
 
-        // Проверяем, что никнейм введен
         if (nickname.trim() === '') {
             alert('Пожалуйста, введите ваш никнейм.');
             return;
         }
-
-        // Отправляем данные на сервер
-        fetch('/api/scores', { // Предполагается, что это ваш эндпоинт на сервере
+        restartModal.style.display = "none";
+        fetch('/api/scores', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -231,15 +221,10 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then(response => response.json())
             .then(data => {
-                console.log('Success:', data);
-                // Делаем поле ввода и кнопку неактивными
-                nicknameInput.disabled = true;
-                submitButton.disabled = true;
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
     });
-
-    // Добавьте сюда логику рестарта игры для restartButton, если необходимо
+    restartModal.style.display = "none";
 });
