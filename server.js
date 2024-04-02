@@ -5,19 +5,18 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Настройки подключения к базе данных
 const pool = new Pool({
-  user: 'admin', // Замените на ваше
-  host: 'db', // Или 'db', если используете docker-compose
-  database: 'leaderboards', // Замените на ваше
-  password: 'kingofpenis228', // Замените на ваше
+  user: 'admin',
+  host: 'db',
+  database: 'leaderboards',
+  password: 'kingofpenis228',
   port: 5432,
 });
 
-// Отдаем статические файлы (например, фронтенд вашего приложения)
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
 
-// API-эндпоинт для получения рейтинга
+
 app.get('/api/leaderboard', async (req, res) => {
   try {
     const { rows } = await pool.query('SELECT id, nickname, score, attempt_timestamp FROM scores ORDER BY score DESC');
@@ -28,12 +27,22 @@ app.get('/api/leaderboard', async (req, res) => {
   }
 });
 
-// Опционально: базовый маршрут для отдачи index.html
+app.post('/api/scores', async (req, res) => {
+    const { nickname, score } = req.body;
+    try {
+      const result = await pool.query('INSERT INTO scores (nickname, score) VALUES ($1, $2) RETURNING *', [nickname, score]);
+      res.json(result.rows[0]);
+    } catch (error) {
+      console.error('Error inserting score:', error);
+      res.status(500).send('Server error');
+    }
+  });
+  
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
   });
 
-// Запуск сервера
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

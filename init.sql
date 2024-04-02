@@ -5,4 +5,3 @@ CREATE TABLE IF NOT EXISTS scores (
     score INT NOT NULL,
     attempt_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
--- Добавьте здесь любые дополнительные команды SQL для инициализации.
